@@ -20,13 +20,13 @@ class Calculadora:
             PosOps = 0
             for i, letter in enumerate(sentence):
                 if (letter in operadores):
-                    a = int(sentence[PosOps:i])
+                    a = float(sentence[PosOps:i])
                     self.partial_numbers.append(a)
                     PosOps = i+1
                     self.operators_sequence.append(letter)
                     #print(f"achei o operador {letter} na posicão {i}")
                     #print(f"Oq veio antes do Operador: {a}")
-            ultimo = int(sentence[PosOps:])
+            ultimo = float(sentence[PosOps:])
             self.partial_numbers.append(ultimo)
             #print(f"Ultimo numero encontrado: {ultimo}")
             roberto = False
@@ -61,9 +61,22 @@ class Calculadora:
                 self._calculo_basico('-')
         self.resultado = self.partial_numbers[0]
 
+    def _verifica_parenteses(self, sentence):
+        abre = list()
+        fecha = list()
+        for i, letter in enumerate(sentence):
+            if letter == '(':
+                abre.append(i)
+            elif letter == ')':
+                fecha.append(i)
+        print(f"Abrem: {abre}, fecham: {fecha}")
+
+
+
 Calc = Calculadora()
-Calc.calcular("12+56*42+43/6-70")
-print(Calc.resultado)
+#Calc.calcular("(12+56)*42+43/6.70")
+Calc._verifica_parenteses("(12+56)*42+43/6.70")
+#print(Calc.resultado)
 
 # [12, 56, 42, 43]
 # ['+', '*', '+']
