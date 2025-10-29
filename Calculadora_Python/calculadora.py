@@ -1,4 +1,3 @@
-
 #------------------------
 #   Pré-Processamento
 #------------------------
@@ -28,15 +27,22 @@ print(operators_sequence)
 #      Processamento
 #------------------------
 
-
 while(len(operators_sequence) != 0):
-    if '*' in operators_sequence:
-        operators_index = operators_sequence.index('*')
-        resultado = partial_numbers[operators_index] * partial_numbers[operators_index+1]
-        partial_numbers.pop(operators_index)
-        partial_numbers.pop(operators_index)
-        partial_numbers.insert(operators_index, resultado)
-        operators_sequence.remove('*')
+    if '*' in operators_sequence or '/' in operators_sequence:
+        if '*' in operators_sequence:
+            operators_index = operators_sequence.index('*')
+            resultado = partial_numbers[operators_index] * partial_numbers[operators_index+1]
+            partial_numbers.pop(operators_index)
+            partial_numbers.pop(operators_index)
+            partial_numbers.insert(operators_index, resultado)
+            operators_sequence.remove('*')
+        else:
+            operators_index = operators_sequence.index('/')
+            resultado = partial_numbers[operators_index] / partial_numbers[operators_index+1]
+            partial_numbers.pop(operators_index)
+            partial_numbers.pop(operators_index)
+            partial_numbers.insert(operators_index, resultado)
+            operators_sequence.remove('/')
     elif '+' in operators_sequence:
         operators_index = operators_sequence.index('+')
         resultado = partial_numbers[operators_index] + partial_numbers[operators_index+1]
@@ -59,5 +65,5 @@ print(operators_sequence)
 # ['+', '*', '+']
 # 3
 
-12+56*42+43*6-70
+12+56*42+43/6-70
 
