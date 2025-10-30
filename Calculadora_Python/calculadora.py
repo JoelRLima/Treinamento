@@ -7,7 +7,7 @@ class Calculadora:
     def calcular(self, sentence):
         self._pre_processamento(sentence)
         self._processamento()
-
+        
     def _pre_processamento(self, sentence):
         """
             Pré-Processamento
@@ -64,18 +64,29 @@ class Calculadora:
     def _verifica_parenteses(self, sentence):
         abre = list()
         fecha = list()
+        parenteses_final = []
         for i, letter in enumerate(sentence):
             if letter == '(':
                 abre.append(i)
             elif letter == ')':
                 fecha.append(i)
         print(f"Abrem: {abre}, fecham: {fecha}")
-
-
-
+        if len(abre) == len(fecha):
+            iterations = len(abre)
+            for _ in range(iterations):
+                if (abre[-1] < fecha[0]):
+                    parenteses_final.append([abre[-1], fecha[0]])
+                else:
+                    #Se cair aqui, então cancela tudo e retorna -1
+                    return False,[]
+                abre.pop(-1)
+                fecha.pop(0)
+            return True, parenteses_final
+        else:
+            return False,[]
 Calc = Calculadora()
 #Calc.calcular("(12+56)*42+43/6.70")
-Calc._verifica_parenteses("(12+56)*42+43/6.70")
+print(Calc._verifica_parenteses("((12+56()*()42+43/6.70))"))
 #print(Calc.resultado)
 
 # [12, 56, 42, 43]
